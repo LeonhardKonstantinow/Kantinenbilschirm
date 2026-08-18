@@ -18,30 +18,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
     body { background-color: var(--bg-dark); color: var(--text-main); padding: 15px; }
 
-    /* Top Controls Bar */
-    .nav-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #000;
-      padding: 10px 20px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #333;
-    }
-    .btn {
-      background: var(--kaercher-yellow);
-      color: #000;
-      border: none;
-      padding: 8px 16px;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-    .btn:hover { opacity: 0.9; }
-    .btn-secondary { background: #333; color: #fff; }
-
     /* Speiseplan Layout */
     .menu-container {
       width: 100%;
@@ -120,7 +96,7 @@
     .footer-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
       padding: 12px 15px;
       background: #f9f9f9;
       border-top: 2px solid #ddd;
@@ -137,18 +113,28 @@
       border-radius: 4px;
       text-align: center;
     }
+
+    /* Unauffällige Knöpfe unten links */
+    .subtle-btn {
+      background: none;
+      border: none;
+      color: #999999;
+      font-size: 10px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+      margin-top: 8px;
+      display: inline-block;
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .subtle-btn:hover {
+      opacity: 1;
+      color: #000000;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Control Header -->
-  <div class="nav-bar">
-    <div style="font-weight: bold; color: var(--kaercher-yellow);">KÄRCHER SPEISEPLAN DISPLAY</div>
-    <div>
-      <button class="btn btn-secondary" onclick="resetData()">Standard Laden</button>
-      <button class="btn" onclick="saveData()">Speichern</button>
-    </div>
-  </div>
 
   <!-- Speiseplan Board -->
   <div class="menu-container">
@@ -399,9 +385,15 @@
     </table>
 
     <div class="footer-row">
-      <div id="footer-text" contenteditable="true">
-        Zur Info: Produkte aus kontrolliert biologischem Anbau, kontrolliert durch DE-ÖKO-006 gemäß aktuellem Aushang.<br>
-        Änderungen vorbehalten / Kennzeichnungspflichtige Zusatzstoffe und Allergene siehe Aushang.
+      <div>
+        <div id="footer-text" contenteditable="true">
+          Zur Info: Produkte aus kontrolliert biologischem Anbau, kontrolliert durch DE-ÖKO-006 gemäß aktuellem Aushang.<br>
+          Änderungen vorbehalten / Kennzeichnungspflichtige Zusatzstoffe und Allergene siehe Aushang.
+        </div>
+        <div>
+          <button type="button" class="subtle-btn" onclick="saveData()">[ Speichern ]</button>
+          <button type="button" class="subtle-btn" onclick="resetData()" style="margin-left: 10px;">[ Zurücksetzen ]</button>
+        </div>
       </div>
       <div class="serving-time">
         Essensausgabe<br>
