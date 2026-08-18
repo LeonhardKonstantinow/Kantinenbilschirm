@@ -63,7 +63,7 @@
       border: 1px solid #ccc;
       padding: 0.3vh 8px;
       vertical-align: middle;
-      font-size: clamp(12px, 1.6vh, 20px);
+      font-size: clamp(11px, 1.5vh, 18px);
     }
 
     th.day-header {
@@ -88,19 +88,19 @@
       text-transform: uppercase;
     }
 
-    /* Vergrößerter Gerichtstext & Preise */
-    .dish-name { font-weight: 700; color: #111; line-height: 1.25; font-size: clamp(14px, 2.0vh, 23px); }
-    .dish-price { font-weight: 800; color: #000; display: inline-block; margin-left: 6px; font-size: clamp(15px, 2.1vh, 24px); }
-    .dish-allergens { font-size: clamp(9px, 1.2vh, 14px); color: #555; margin-top: 2px; }
+    /* Gerichtstext normal (nicht fett), Preise fett */
+    .dish-name { font-weight: 400; color: #111; line-height: 1.2; font-size: clamp(12px, 1.7vh, 20px); }
+    .dish-price { font-weight: 800; color: #000; display: inline-block; margin-left: 6px; font-size: clamp(13px, 1.8vh, 22px); }
+    .dish-allergens { font-size: clamp(8px, 1.1vh, 13px); color: #555; margin-top: 2px; }
     
-    /* Verkleinerte, dezentere Symbole & Emojis */
+    /* Eine Einheit größere Icons */
     .dish-tags { 
-      margin-top: 3px; 
-      font-size: clamp(12px, 1.6vh, 20px); 
+      margin-top: 4px; 
+      font-size: clamp(15px, 2.2vh, 26px); 
       line-height: 1;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       flex-wrap: wrap;
     }
     
@@ -109,9 +109,9 @@
       display: inline-block;
       background-color: #2e7d32;
       color: #fff;
-      font-size: clamp(9px, 1.1vh, 13px);
+      font-size: clamp(9px, 1.2vh, 14px);
       font-weight: bold;
-      padding: 1px 5px;
+      padding: 1px 6px;
       border-radius: 3px;
       letter-spacing: 0.5px;
     }
