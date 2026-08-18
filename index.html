@@ -16,7 +16,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); padding: 15px; }
+    body { background-color: var(--bg-dark); color: var(--text-main); padding: 15px; position: relative; min-height: 100vh; }
 
     /* Speiseplan Layout */
     .menu-container {
@@ -96,7 +96,7 @@
     .footer-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       padding: 12px 15px;
       background: #f9f9f9;
       border-top: 2px solid #ddd;
@@ -114,23 +114,29 @@
       text-align: center;
     }
 
-    /* Unauffällige Knöpfe unten links */
+    /* Schwebende Steuerung unten links außerhalb der Karte */
+    .admin-controls {
+      position: fixed;
+      bottom: 4px;
+      left: 10px;
+      z-index: 9999;
+      opacity: 0.35;
+      transition: opacity 0.2s;
+    }
+    .admin-controls:hover {
+      opacity: 1;
+    }
     .subtle-btn {
-      background: none;
+      background: transparent;
       border: none;
-      color: #999999;
-      font-size: 10px;
+      color: #888888;
+      font-size: 11px;
       cursor: pointer;
       text-decoration: underline;
-      padding: 0;
-      margin-top: 8px;
-      display: inline-block;
-      opacity: 0.6;
-      transition: opacity 0.2s, color 0.2s;
+      margin-right: 12px;
     }
     .subtle-btn:hover {
-      opacity: 1;
-      color: #000000;
+      color: var(--kaercher-yellow);
     }
   </style>
 </head>
@@ -385,21 +391,21 @@
     </table>
 
     <div class="footer-row">
-      <div>
-        <div id="footer-text" contenteditable="true">
-          Zur Info: Produkte aus kontrolliert biologischem Anbau, kontrolliert durch DE-ÖKO-006 gemäß aktuellem Aushang.<br>
-          Änderungen vorbehalten / Kennzeichnungspflichtige Zusatzstoffe und Allergene siehe Aushang.
-        </div>
-        <div>
-          <button type="button" class="subtle-btn" onclick="saveData()">[ Speichern ]</button>
-          <button type="button" class="subtle-btn" onclick="resetData()" style="margin-left: 10px;">[ Zurücksetzen ]</button>
-        </div>
+      <div id="footer-text" contenteditable="true">
+        Zur Info: Produkte aus kontrolliert biologischem Anbau, kontrolliert durch DE-ÖKO-006 gemäß aktuellem Aushang.<br>
+        Änderungen vorbehalten / Kennzeichnungspflichtige Zusatzstoffe und Allergene siehe Aushang.
       </div>
       <div class="serving-time">
         Essensausgabe<br>
         <span id="serving-hours" contenteditable="true">11:30 bis 13:15 Uhr</span>
       </div>
     </div>
+  </div>
+
+  <!-- Unauffällige Steuerung ganz unten links auf dem dunklen Bildschirmrand -->
+  <div class="admin-controls">
+    <button type="button" class="subtle-btn" onclick="saveData()">[ Speichern ]</button>
+    <button type="button" class="subtle-btn" onclick="resetData()">[ Zurücksetzen ]</button>
   </div>
 
   <script>
