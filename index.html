@@ -38,7 +38,7 @@
       color: #000;
       text-align: center;
       padding: 0.6vh 0;
-      font-size: clamp(20px, 3.2vh, 38px);
+      font-size: clamp(24px, 3.8vh, 44px);
       font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -61,9 +61,9 @@
 
     th, td {
       border: 1px solid #ccc;
-      padding: 0.4vh 8px;
+      padding: 0.3vh 8px;
       vertical-align: middle;
-      font-size: clamp(10px, 1.35vh, 16px);
+      font-size: clamp(12px, 1.6vh, 20px);
     }
 
     th.day-header {
@@ -71,10 +71,10 @@
       color: #000;
       text-align: center;
       font-weight: bold;
-      height: 5vh;
+      height: 5.5vh;
     }
-    .day-date { font-size: clamp(9px, 1.1vh, 13px); text-transform: uppercase; }
-    .day-name { font-size: clamp(13px, 1.8vh, 20px); font-weight: 800; text-transform: uppercase; }
+    .day-date { font-size: clamp(11px, 1.3vh, 16px); text-transform: uppercase; }
+    .day-name { font-size: clamp(15px, 2.2vh, 25px); font-weight: 900; text-transform: uppercase; }
 
     /* Kategorie-Spalte links */
     td.category-title {
@@ -84,24 +84,36 @@
       text-align: center;
       vertical-align: middle;
       width: 12vw;
-      font-size: clamp(11px, 1.5vh, 17px);
+      font-size: clamp(13px, 1.8vh, 22px);
       text-transform: uppercase;
     }
 
-    .dish-name { font-weight: 600; color: #111; line-height: 1.2; font-size: clamp(10px, 1.35vh, 15px); }
-    .dish-price { font-weight: bold; color: #000; display: inline-block; margin-left: 4px; font-size: clamp(10px, 1.35vh, 15px); }
-    .dish-allergens { font-size: clamp(8px, 1vh, 12px); color: #555; margin-top: 1px; }
-    .dish-tags { margin-top: 1px; font-size: clamp(11px, 1.4vh, 16px); }
+    /* Gerichtselemente */
+    .dish-name { font-weight: 600; color: #111; line-height: 1.25; font-size: clamp(12px, 1.6vh, 19px); }
+    .dish-price { font-weight: 800; color: #000; display: inline-block; margin-left: 6px; font-size: clamp(13px, 1.75vh, 20px); }
+    .dish-allergens { font-size: clamp(9px, 1.2vh, 14px); color: #555; margin-top: 2px; }
     
+    /* Größere Symbole & Emojis */
+    .dish-tags { 
+      margin-top: 4px; 
+      font-size: clamp(18px, 2.6vh, 32px); 
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    
+    /* Größerer JOB&FIT Badge */
     .badge-jobfit {
       display: inline-block;
       background-color: #2e7d32;
       color: #fff;
-      font-size: clamp(8px, 0.9vh, 11px);
+      font-size: clamp(10px, 1.3vh, 15px);
       font-weight: bold;
-      padding: 1px 4px;
-      border-radius: 3px;
-      margin-right: 4px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
     }
 
     /* Footer Info */
@@ -113,16 +125,16 @@
       padding: 0.8vh 15px;
       background: #f9f9f9;
       border-top: 2px solid #ddd;
-      font-size: clamp(9px, 1.1vh, 13px);
-      color: #444;
+      font-size: clamp(10px, 1.3vh, 15px);
+      color: #333;
     }
 
     .serving-time {
       background-color: var(--kaercher-yellow);
       color: #000;
-      padding: 0.4vh 12px;
+      padding: 0.5vh 14px;
       font-weight: bold;
-      font-size: clamp(11px, 1.4vh, 16px);
+      font-size: clamp(13px, 1.7vh, 21px);
       border-radius: 4px;
       text-align: center;
     }
@@ -222,7 +234,7 @@
           <tr>
             <td class="category-title">
               <div contenteditable="true">KALTGERICHT 4</div>
-              <div style="font-size: clamp(7px, 0.9vh, 10px); font-weight: normal; margin-top: 2px;" contenteditable="true">Bitte entnehmen Sie die Kaltspeise aus unserer Kühltheke</div>
+              <div style="font-size: clamp(8px, 1vh, 12px); font-weight: normal; margin-top: 2px;" contenteditable="true">Bitte entnehmen Sie die Kaltspeise aus unserer Kühltheke</div>
             </td>
             <td>
               <span class="dish-name" contenteditable="true">Eingelegte Champignons auf griechische Art mit grünem Bohnensalat</span>
@@ -285,7 +297,7 @@
             </td>
             <td rowspan="3" style="vertical-align: middle; text-align: center; background: #fafafa;">
               <div class="dish-name" contenteditable="true">Bedienen Sie sich nach Herzenslust vom Besten der Woche</div>
-              <div class="dish-price" contenteditable="true" style="font-size: clamp(12px, 1.8vh, 20px); margin-top: 8px; display: block;">4,60 €</div>
+              <div class="dish-price" contenteditable="true" style="font-size: clamp(14px, 2vh, 24px); margin-top: 8px; display: block;">4,60 €</div>
             </td>
           </tr>
 
