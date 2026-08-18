@@ -3,457 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kärcher Speiseplan Display</title>
+  <title>Speisekarte</title>
   <style>
-    :root {
-      --kaercher-yellow: #FFED00;
-      --kaercher-black: #000000;
-      --bg-dark: #121212;
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
-
-    html, body {
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: var(--bg-dark);
-      font-family: 'Segoe UI', Arial, sans-serif;
-    }
-
-    /* Vollbild-Container */
-    .menu-container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: #fff;
-      color: #000;
-    }
-
-    /* Header Banner */
-    .brand-header {
-      flex: 0 0 auto;
-      background-color: var(--kaercher-yellow);
-      color: #000;
-      text-align: center;
-      padding: 0.6vh 0;
-      font-size: clamp(24px, 3.8vh, 44px);
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border-bottom: 3px solid #000;
-    }
-
-    /* Tabellen-Bereich nutzt die verbleibende Höhe zu 100% */
-    .table-wrapper {
-      flex: 1 1 auto;
-      height: 100%;
-      display: flex;
-    }
-
-    table {
-      width: 100%;
-      height: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.3vh 8px;
-      vertical-align: middle;
-      font-size: clamp(11px, 1.5vh, 18px);
-    }
-
-    th.day-header {
-      background-color: var(--kaercher-yellow);
-      color: #000;
-      text-align: center;
-      font-weight: bold;
-      height: 5.5vh;
-    }
-    .day-date { font-size: clamp(11px, 1.3vh, 16px); text-transform: uppercase; }
-    .day-name { font-size: clamp(15px, 2.2vh, 25px); font-weight: 900; text-transform: uppercase; }
-
-    /* Kategorie-Spalte links */
-    td.category-title {
-      background-color: #000;
-      color: var(--kaercher-yellow);
-      font-weight: bold;
-      text-align: center;
-      vertical-align: middle;
-      width: 12vw;
-      font-size: clamp(13px, 1.8vh, 22px);
-      text-transform: uppercase;
-    }
-
-    /* Gerichtstext normal (nicht fett), Preise fett */
-    .dish-name { font-weight: 400; color: #111; line-height: 1.2; font-size: clamp(12px, 1.7vh, 20px); }
-    .dish-price { font-weight: 800; color: #000; display: inline-block; margin-left: 6px; font-size: clamp(13px, 1.8vh, 22px); }
-    .dish-allergens { font-size: clamp(8px, 1.1vh, 13px); color: #555; margin-top: 2px; }
-    
-    /* Eine Einheit größere Icons */
-    .dish-tags { 
-      margin-top: 4px; 
-      font-size: clamp(15px, 2.2vh, 26px); 
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    
-    /* JOB&FIT Badge */
-    .badge-jobfit {
-      display: inline-block;
-      background-color: #2e7d32;
-      color: #fff;
-      font-size: clamp(9px, 1.2vh, 14px);
-      font-weight: bold;
-      padding: 1px 6px;
-      border-radius: 3px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Footer Info */
-    .footer-row {
-      flex: 0 0 auto;
+    .menu-item {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 0.8vh 15px;
-      background: #f9f9f9;
-      border-top: 2px solid #ddd;
-      font-size: clamp(10px, 1.3vh, 15px);
-      color: #333;
+      align-items: baseline;
+      margin-top: 15px;
     }
-
-    .serving-time {
-      background-color: var(--kaercher-yellow);
-      color: #000;
-      padding: 0.5vh 14px;
-      font-weight: bold;
-      font-size: clamp(13px, 1.7vh, 21px);
-      border-radius: 4px;
-      text-align: center;
+    .description {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
     }
-
-    /* Versteckte Steuerung ganz unten links */
-    .admin-controls {
-      position: fixed;
-      bottom: 2px;
-      left: 10px;
-      z-index: 9999;
-      opacity: 0.25;
-      transition: opacity 0.2s;
-    }
-    .admin-controls:hover { opacity: 1; }
-    .subtle-btn {
-      background: transparent;
-      border: none;
-      color: #888888;
-      font-size: clamp(9px, 1vh, 12px);
-      cursor: pointer;
-      text-decoration: underline;
-      margin-right: 10px;
-    }
-    .subtle-btn:hover { color: #000; }
   </style>
 </head>
 <body>
 
-  <!-- Speiseplan Board -->
-  <div class="menu-container">
-    <div class="brand-header" id="header-title" contenteditable="true">KÄRCHER</div>
+  <h1>Speisekarte</h1>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 12vw; background: #000;"></th>
-            <th class="day-header">
-              <div class="day-date" contenteditable="true">17 Aug</div>
-              <div class="day-name" contenteditable="true">MONTAG</div>
-            </th>
-            <th class="day-header">
-              <div class="day-date" contenteditable="true">18 Aug</div>
-              <div class="day-name" contenteditable="true">DIENSTAG</div>
-            </th>
-            <th class="day-header">
-              <div class="day-date" contenteditable="true">19 Aug</div>
-              <div class="day-name" contenteditable="true">MITTWOCH</div>
-            </th>
-            <th class="day-header">
-              <div class="day-date" contenteditable="true">20 Aug</div>
-              <div class="day-name" contenteditable="true">DONNERSTAG</div>
-            </th>
-            <th class="day-header">
-              <div class="day-date" contenteditable="true">21 Aug</div>
-              <div class="day-name" contenteditable="true">FREITAG</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Suppe -->
-          <tr>
-            <td class="category-title" contenteditable="true">SUPPE</td>
-            <td>
-              <span class="dish-name" contenteditable="true">Pastinaken-Cremesuppe</span>
-              <span class="dish-price" contenteditable="true">1,00 €</span>
-              <div class="dish-allergens" contenteditable="true">i</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Süß-scharfe Gazpacho</span>
-              <span class="dish-price" contenteditable="true">1,00 €</span>
-              <div class="dish-allergens" contenteditable="true">i</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Karottencremesuppe</span>
-              <span class="dish-price" contenteditable="true">1,00 €</span>
-              <div class="dish-allergens" contenteditable="true">i</div>
-              <div class="dish-tags" contenteditable="true">🐷 🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Minestrone</span>
-              <span class="dish-price" contenteditable="true">1,00 €</span>
-              <div class="dish-allergens" contenteditable="true">i</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Tagesangebot</span>
-              <span class="dish-price" contenteditable="true">1,00 €</span>
-              <div class="dish-allergens" contenteditable="true"></div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-          </tr>
-
-          <!-- Kaltgericht 4 -->
-          <tr>
-            <td class="category-title">
-              <div contenteditable="true">KALTGERICHT 4</div>
-              <div style="font-size: clamp(8px, 1vh, 12px); font-weight: normal; margin-top: 2px;" contenteditable="true">Bitte entnehmen Sie die Kaltspeise aus unserer Kühltheke</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Eingelegte Champignons auf griechische Art mit grünem Bohnensalat</span>
-              <span class="dish-price" contenteditable="true">3,80 €</span>
-              <div class="dish-allergens" contenteditable="true">J, O, i</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Wrap mit Birnen, Walnüssen und kleinem Salat</span>
-              <span class="dish-price" contenteditable="true">3,80 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, G, H3, i</div>
-              <div class="dish-tags" contenteditable="true">🐓</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Wurstsalat mit Geifertshofer Käse</span>
-              <span class="dish-price" contenteditable="true">4,50 €</span>
-              <div class="dish-allergens" contenteditable="true">C, G, J, O, i, 1, 2, 3, 7</div>
-              <div class="dish-tags" contenteditable="true">🐷 🐮</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Tabouleh-Salat mit Tomaten, Gurken und Minze</span>
-              <span class="dish-price" contenteditable="true">3,20 €</span>
-              <div class="dish-allergens" contenteditable="true">A5, i</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Eingelegte Champignons auf griechische Art mit grünem Bohnensalat</span>
-              <span class="dish-price" contenteditable="true">3,80 €</span>
-              <div class="dish-allergens" contenteditable="true">J, O, i</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-          </tr>
-
-          <!-- Gericht 1 -->
-          <tr>
-            <td class="category-title" contenteditable="true">GERICHT 1</td>
-            <td>
-              <span class="dish-name" contenteditable="true">Schweinerücken am Stück gegart in der Hohenloher Senf-Kräuterkruste und Rotweinsoße</span>
-              <span class="dish-price" contenteditable="true">4,50 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, F, J, O, i, 3</div>
-              <div class="dish-tags" contenteditable="true">🐷 🐮</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Gebratene Putenbruststreifen mit knackigem Asiagemüse und gelber Thai-Currysoße</span>
-              <span class="dish-price" contenteditable="true">4,80 €</span>
-              <div class="dish-allergens" contenteditable="true">i</div>
-              <div class="dish-tags" contenteditable="true">🐓</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Linsen mit Spätzle - nach Wunsch mit Saiten (4,10 €)</span>
-              <span class="dish-price" contenteditable="true">2,60 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, C, J, O, i, 1, 2, 3, 7</div>
-              <div class="dish-tags" contenteditable="true">🐷 🐮</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Paniertes Hähnchenbrustfilet in der Mandelkruste mit fruchtiger Currysoße</span>
-              <span class="dish-price" contenteditable="true">4,00 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, C, F, G, H1</div>
-              <div class="dish-tags" contenteditable="true">🐓</div>
-            </td>
-            <td rowspan="3" style="vertical-align: middle; text-align: center; background: #fafafa;">
-              <div class="dish-name" contenteditable="true">Bedienen Sie sich nach Herzenslust vom Besten der Woche</div>
-              <div class="dish-price" contenteditable="true" style="font-size: clamp(16px, 2.3vh, 26px); margin-top: 8px; display: block;">4,60 €</div>
-            </td>
-          </tr>
-
-          <!-- Gericht 2 -->
-          <tr>
-            <td class="category-title" contenteditable="true">GERICHT 2</td>
-            <td>
-              <span class="dish-name" contenteditable="true">Gemüserisotto mit Austernpilzen und Rucolapesto</span>
-              <span class="dish-price" contenteditable="true">3,80 €</span>
-              <div class="dish-allergens" contenteditable="true">G, O, i</div>
-              <div class="dish-tags" contenteditable="true"><span class="badge-jobfit">JOB&FIT</span> 🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Dinkel-Vollkornspaghetti mit fruchtiger Gemüsebolognese</span>
-              <span class="dish-price" contenteditable="true">3,30 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, A5, i</div>
-              <div class="dish-tags" contenteditable="true"><span class="badge-jobfit">JOB&FIT</span> 🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Gebratene Blumenkohlröschen mit knusprigen Kartoffelspalten und Currymayonnaise</span>
-              <span class="dish-price" contenteditable="true">3,90 €</span>
-              <div class="dish-allergens" contenteditable="true">A1</div>
-              <div class="dish-tags" contenteditable="true">🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Hausgemachte Radiatori mit Frischkäsesoße, gebratene Zucchini und getrockneten Tomaten</span>
-              <span class="dish-price" contenteditable="true">3,40 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, G, 2</div>
-              <div class="dish-tags" contenteditable="true">🐷 🐮</div>
-            </td>
-          </tr>
-
-          <!-- Gericht 3 -->
-          <tr>
-            <td class="category-title" contenteditable="true">GERICHT 3</td>
-            <td>
-              <span class="dish-name" contenteditable="true">Gekochte Ochsenbrust mit Meerrettichsoße</span>
-              <span class="dish-price" contenteditable="true">5,20 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, G, O, i, 3</div>
-              <div class="dish-tags" contenteditable="true">🐷 🐮</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Big beef Burger mit gegrilltem Spitzpaprika, Röstzwiebeln und Kräuterdip</span>
-              <span class="dish-price" contenteditable="true">5,30 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, A3, A5, C, G, i</div>
-              <div class="dish-tags" contenteditable="true">🐷 🐮</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Bowl mit Tomaten-vollkornreis, knusprigem Tofu, Sesamkarotten und Ingwer-Haferdip</span>
-              <span class="dish-price" contenteditable="true">3,50 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, F, K</div>
-              <div class="dish-tags" contenteditable="true"><span class="badge-jobfit">JOB&FIT</span> 🌱</div>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Ofengerauchter Lachs mit buntem Freekeh-Salat und Meerrettichdip</span>
-              <span class="dish-price" contenteditable="true">6,50 €</span>
-              <div class="dish-allergens" contenteditable="true">A1, D, J, O, i</div>
-              <div class="dish-tags" contenteditable="true"><span class="badge-jobfit">JOB&FIT</span> 🐟</div>
-            </td>
-          </tr>
-
-          <!-- Beilagen -->
-          <tr>
-            <td class="category-title" contenteditable="true">BEILAGEN / GEMÜSE</td>
-            <td>
-              <div class="dish-name" contenteditable="true">Bratkartoffel 1,00 €</div>
-              <div class="dish-name" contenteditable="true">Kartoffelgratin</div>
-              <div class="dish-name" contenteditable="true">Brokkoli</div>
-            </td>
-            <td>
-              <div class="dish-name" contenteditable="true">Twister 1,00 €</div>
-              <div class="dish-name" contenteditable="true">Reis</div>
-              <div class="dish-name" contenteditable="true">Wok Gemüse</div>
-            </td>
-            <td>
-              <div class="dish-name" contenteditable="true">Spätzle 1,00 €</div>
-              <div class="dish-name" contenteditable="true">Wedges</div>
-              <div class="dish-name" contenteditable="true">Blumenkohl</div>
-            </td>
-            <td>
-              <div class="dish-name" contenteditable="true">Pommes</div>
-              <div class="dish-name" contenteditable="true">Kohlrabi</div>
-            </td>
-            <td>
-              <div class="dish-name" contenteditable="true">Tagesbeilagen</div>
-              <div class="dish-price" contenteditable="true">1,00 €</div>
-            </td>
-          </tr>
-
-          <!-- Dessert -->
-          <tr>
-            <td class="category-title" contenteditable="true">DESSERT</td>
-            <td>
-              <span class="dish-name" contenteditable="true">Dessert</span>
-              <span class="dish-price" contenteditable="true">0,80 €</span>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Dessert</span>
-              <span class="dish-price" contenteditable="true">0,80 €</span>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Dinkelgrießbrei mit Sauerkirschen</span>
-              <span class="dish-price" contenteditable="true">3,00 €</span>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Dessert</span>
-              <span class="dish-price" contenteditable="true">0,80 €</span>
-            </td>
-            <td>
-              <span class="dish-name" contenteditable="true">Dessert der Woche</span>
-              <span class="dish-price" contenteditable="true">0,80 €</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="footer-row">
-      <div id="footer-text" contenteditable="true">
-        Zur Info: Produkte aus kontrolliert biologischem Anbau, kontrolliert durch DE-ÖKO-006 gemäß aktuellem Aushang.<br>
-        Änderungen vorbehalten / Kennzeichnungspflichtige Zusatzstoffe und Allergene siehe Aushang.
-      </div>
-      <div class="serving-time">
-        Essensausgabe<br>
-        <span id="serving-hours" contenteditable="true">11:30 bis 13:15 Uhr</span>
-      </div>
-    </div>
+  <div class="menu-item">
+    <span><b>Pizza Margherita</b></span>
+    <span><b>8,50 €</b></span>
   </div>
+  <div class="description">Tomatensauce, Mozzarella und frischer Basilikum</div>
 
-  <div class="admin-controls">
-    <button type="button" class="subtle-btn" onclick="saveData()">[ Speichern ]</button>
-    <button type="button" class="subtle-btn" onclick="resetData()">[ Zurücksetzen ]</button>
+  <div class="menu-item">
+    <span><b>Spaghetti Carbonara</b></span>
+    <span><b>11,90 €</b></span>
   </div>
+  <div class="description">Guanciale, Eigelb, Pecorino Romano und schwarzer Pfeffer</div>
 
-  <script>
-    function saveData() {
-      const container = document.querySelector('.table-wrapper').innerHTML;
-      localStorage.setItem('kaercher_table_html', container);
-      alert('Speiseplan erfolgreich gespeichert!');
-    }
+  <div class="menu-item">
+    <span><b>Tiramisu</b></span>
+    <span><b>5,00 €</b></span>
+  </div>
+  <div class="description">Hausgemacht mit Löffelbiskuits, Espresso und Mascarpone</div>
 
-    function loadData() {
-      const saved = localStorage.getItem('kaercher_table_html');
-      if(saved) {
-        document.querySelector('.table-wrapper').innerHTML = saved;
-      }
-    }
-
-    function resetData() {
-      if(confirm('Möchtest du die Tabelle auf den Originalzustand zurücksetzen?')) {
-        localStorage.removeItem('kaercher_table_html');
-        location.reload();
-      }
-    }
-
-    window.onload = loadData;
-  </script>
 </body>
 </html>
