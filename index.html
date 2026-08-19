@@ -37,8 +37,8 @@
       background-color: var(--kaercher-yellow);
       color: #000;
       text-align: center;
-      padding: 0.6vh 0;
-      font-size: clamp(24px, 3.8vh, 44px);
+      padding: 0.8vh 0;
+      font-size: clamp(26px, 4.2vh, 60px);
       font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -61,9 +61,8 @@
 
     th, td {
       border: 1px solid #ccc;
-      padding: 0.3vh 8px;
+      padding: 0.4vh 10px;
       vertical-align: middle;
-      font-size: clamp(11px, 1.5vh, 18px);
     }
 
     th.day-header {
@@ -71,36 +70,38 @@
       color: #000;
       text-align: center;
       font-weight: bold;
-      height: 5.5vh;
+      height: 6vh;
     }
-    .day-date { font-size: clamp(11px, 1.3vh, 16px); text-transform: uppercase; }
-    .day-name { font-size: clamp(15px, 2.2vh, 25px); font-weight: 900; text-transform: uppercase; }
+    .day-date { font-size: clamp(12px, 1.5vh, 22px); text-transform: uppercase; }
+    .day-name { font-size: clamp(16px, 2.6vh, 38px); font-weight: 900; text-transform: uppercase; }
 
-    /* Kategorie-Spalte links */
+    /* Kategorie-Spalte links (Breite erhöht für TV-Displays) */
     td.category-title {
       background-color: #000;
       color: var(--kaercher-yellow);
       font-weight: bold;
       text-align: center;
       vertical-align: middle;
-      width: 12vw;
-      font-size: clamp(13px, 1.8vh, 22px);
+      width: 13.5vw;
+      font-size: clamp(12px, 1.8vh, 26px);
       text-transform: uppercase;
+      padding: 0.4vh 6px;
+      word-wrap: break-word;
     }
 
-    /* Gerichte fett, Preise fett */
-    .dish-name { font-weight: 700; color: #111; line-height: 1.2; font-size: clamp(12px, 1.7vh, 20px); }
-    .dish-price { font-weight: 800; color: #000; display: inline-block; margin-left: 6px; font-size: clamp(13px, 1.8vh, 22px); }
-    .dish-allergens { font-size: clamp(8px, 1.1vh, 13px); color: #555; margin-top: 2px; }
+    /* Gerichte fett, Preise fett & dynamisch auf Großbildschirmen */
+    .dish-name { font-weight: 700; color: #111; line-height: 1.25; font-size: clamp(13px, 2.1vh, 30px); }
+    .dish-price { font-weight: 800; color: #000; display: inline-block; margin-left: 6px; font-size: clamp(14px, 2.2vh, 32px); }
+    .dish-allergens { font-size: clamp(9px, 1.3vh, 18px); color: #555; margin-top: 3px; }
     
-    /* Vergrößerte Icons */
+    /* Deutlich vergrößerte Icons für Fernseher */
     .dish-tags { 
-      margin-top: 4px; 
-      font-size: clamp(18px, 2.6vh, 30px); 
+      margin-top: 5px; 
+      font-size: clamp(20px, 3.2vh, 48px); 
       line-height: 1;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
     }
     
@@ -109,10 +110,10 @@
       display: inline-block;
       background-color: #2e7d32;
       color: #fff;
-      font-size: clamp(10px, 1.3vh, 15px);
+      font-size: clamp(11px, 1.5vh, 20px);
       font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 3px;
+      padding: 2px 8px;
+      border-radius: 4px;
       letter-spacing: 0.5px;
     }
 
@@ -122,19 +123,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.8vh 15px;
+      padding: 1vh 20px;
       background: #f9f9f9;
       border-top: 2px solid #ddd;
-      font-size: clamp(10px, 1.3vh, 15px);
+      font-size: clamp(11px, 1.5vh, 20px);
       color: #333;
     }
 
     .serving-time {
       background-color: var(--kaercher-yellow);
       color: #000;
-      padding: 0.5vh 14px;
+      padding: 0.6vh 18px;
       font-weight: bold;
-      font-size: clamp(13px, 1.7vh, 21px);
+      font-size: clamp(14px, 2vh, 28px);
       border-radius: 4px;
       text-align: center;
     }
@@ -153,7 +154,7 @@
       background: transparent;
       border: none;
       color: #888888;
-      font-size: clamp(9px, 1vh, 12px);
+      font-size: clamp(9px, 1vh, 14px);
       cursor: pointer;
       text-decoration: underline;
       margin-right: 10px;
@@ -171,7 +172,7 @@
       <table>
         <thead>
           <tr>
-            <th style="width: 12vw; background: #000;"></th>
+            <th style="width: 13.5vw; background: #000;"></th>
             <th class="day-header">
               <div class="day-date" contenteditable="true">17 Aug</div>
               <div class="day-name" contenteditable="true">MONTAG</div>
@@ -234,7 +235,7 @@
           <tr>
             <td class="category-title">
               <div contenteditable="true">KALTGERICHT 4</div>
-              <div style="font-size: clamp(8px, 1vh, 12px); font-weight: normal; margin-top: 2px;" contenteditable="true">Bitte entnehmen Sie die Kaltspeise aus unserer Kühltheke</div>
+              <div style="font-size: clamp(8px, 1.1vh, 14px); font-weight: normal; margin-top: 3px;" contenteditable="true">Bitte entnehmen Sie die Kaltspeise aus unserer Kühltheke</div>
             </td>
             <td>
               <span class="dish-name" contenteditable="true">Eingelegte Champignons auf griechische Art mit grünem Bohnensalat</span>
@@ -297,7 +298,7 @@
             </td>
             <td rowspan="3" style="vertical-align: middle; text-align: center; background: #fafafa;">
               <div class="dish-name" contenteditable="true">Bedienen Sie sich nach Herzenslust vom Besten der Woche</div>
-              <div class="dish-price" contenteditable="true" style="font-size: clamp(16px, 2.3vh, 26px); margin-top: 8px; display: block;">4,60 €</div>
+              <div class="dish-price" contenteditable="true" style="font-size: clamp(18px, 2.6vh, 36px); margin-top: 10px; display: block;">4,60 €</div>
             </td>
           </tr>
 
